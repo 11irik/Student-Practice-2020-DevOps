@@ -4,7 +4,6 @@ node('release') {
     }
     stage('Deploy') {
 	echo "DEPLOY DEPLOY DEPLOY"
-        sh '/app/docker-compose.yml up -d'
     }
 }
 
