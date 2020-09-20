@@ -1,11 +1,9 @@
-version: '3'
-
 services:
   sp2020-events:
     image: registry.ap.aws.griddynamics.net/sp2020-events:latest
     container_name: events
     networks:
-  - events
+      - events
     ports:
       - 8080:8080
     environment:
@@ -15,12 +13,15 @@ services:
       LETSENCRYPT_HOST: events.ap.aws.griddynamics.net
       VIRTUAL_HOST: events.ap.aws.griddynamics.net
 
-    psqldb:
-      image: postgres:12.4
-      environment:
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: password
-        POSTGRES_DB: grid_events
+  psqldb:
+    image: postgres:12.4
+    container_name: psqldb
+    networks:
+      - events
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: grid_events
 
 networks:
   events:
