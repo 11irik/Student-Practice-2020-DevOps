@@ -3,7 +3,8 @@ node('release') {
         checkout scm
     }
     stage('Deploy') {
-	echo "DEPLOY DEPLOY DEPLOY"
+	sh 'docker-compose -f ./nginx/docker-compose.yml up -d'
+	sh 'docker-compose -f ./app/docker-compose.yml up -d'
     }
 }
 
