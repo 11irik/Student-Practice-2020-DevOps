@@ -2,27 +2,27 @@ version: '3'
 
 services:
   sp2020-events:
-      image: registry.ap.aws.griddynamics.net/sp2020-events:latest
-      container_name: events
-      networks:
-	- events
-      ports:
-        - 8080:8080
-      environment:
-          DB_USERNAME: postgres
-          DB_PASSWORD: password
-          DB_URL: jdbc:postgresql://psqldb:5432/grid_events
-          LETSENCRYPT_HOST: events.ap.aws.griddynamics.net
-          VIRTUAL_HOST: events.ap.aws.griddynamics.net
-
-  psqldb:
-    image: postgres:12.4
+    image: registry.ap.aws.griddynamics.net/sp2020-events:latest
+    container_name: events
+    networks:
+  - events
+    ports:
+      - 8080:8080
     environment:
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
+      DB_URL: jdbc:postgresql://psqldb:5432/grid_events
+      LETSENCRYPT_HOST: events.ap.aws.griddynamics.net
+      VIRTUAL_HOST: events.ap.aws.griddynamics.net
+
+    psqldb:
+      image: postgres:12.4
+      environment:
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: password
         POSTGRES_DB: grid_events
 
 networks:
-    events:
-        external:
-            name: nginx-proxy
+  events:
+    external:
+      name: nginx-proxy
